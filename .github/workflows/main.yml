@@ -43,7 +43,18 @@ jobs:
       - name: Build today's page
         env:
           APP_CONFIG_JSON: ${{ secrets.APP_CONFIG_JSON }}
-        run: python main.py --build-only
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import subprocess
+
+          config = json.loads(os.environ["APP_CONFIG_JSON"])
+          config["region"] = "成都"
+          env = os.environ.copy()
+          env["APP_CONFIG_JSON"] = json.dumps(config, ensure_ascii=False)
+          subprocess.run(["python", "main.py", "--build-only"], check=True, env=env)
+          PY
 
       - name: Copy Lulu fallbacks into site
         run: |
@@ -67,4 +78,15 @@ jobs:
         env:
           APP_CONFIG_JSON: ${{ secrets.APP_CONFIG_JSON }}
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
-        run: python main.py --notify-only
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import subprocess
+
+          config = json.loads(os.environ["APP_CONFIG_JSON"])
+          config["region"] = "成都"
+          env = os.environ.copy()
+          env["APP_CONFIG_JSON"] = json.dumps(config, ensure_ascii=False)
+          subprocess.run(["python", "main.py", "--notify-only"], check=True, env=env)
+          PY
