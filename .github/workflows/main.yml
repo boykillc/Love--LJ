@@ -88,7 +88,7 @@ jobs:
           config = json.loads(os.environ["APP_CONFIG_JSON"])
           config["region"] = "成都"
           config["love_date"] = "2026-10-08"
-          config["template_id"] = "wOCo42avg71_kTdNjBZx4k4XFjw__TZXJBhXKA97PEo"
+          config["template_id"] = "rvGbGug7D_zSnH-xca-kpRz8hGrH18j6_wsAXnwjc7Y"
           env = os.environ.copy()
           env["APP_CONFIG_JSON"] = json.dumps(config, ensure_ascii=False)
           subprocess.run(["python", "main.py", "--notify-only"], check=True, env=env)
