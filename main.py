@@ -262,7 +262,7 @@ def collect_daily_data():
     love_days = ""
     if love_date_value:
         love_date = datetime.strptime(love_date_value, "%Y-%m-%d").date()
-        love_days = str((today - love_date).days)
+        love_days = str((today - love_date).days + 1)
 
     birthdays = []
     for key, value in config.items():
